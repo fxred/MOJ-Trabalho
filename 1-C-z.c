@@ -39,10 +39,10 @@ int main() {
 
     initializeStack(head);
 
-    char input[100];
+    char input[110];
 
     while (scanf(" %[^\n]", input) == 1) {
-        if (strlen(input) == 8) {
+        if (!(strcmp(input, "desfazer"))) {
             printf("%s\n", head->value);
             head = removeAtBeginning(head);
         }
