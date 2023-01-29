@@ -15,25 +15,23 @@ void initializeStack(node *head) {
     head->next = NULL;
 }
 
-void insertAtBeginning(node *head, char inputNoKeyword[]) { // método PUSH, provavelmente vai precisar de refatoração
-    if (!(strcmp(head->value, "NULL"))) {
-        strcpy(head->value, inputNoKeyword);
-    }
-    else {
-        node *temp = head;
-        strcpy(head->value, inputNoKeyword);
-        head->next = temp;
-    }
+node* insertAtBeginning(node *head, char inputNoKeyword[]) { // método PUSH, provavelmente vai precisar de refatoração
+    node *temp = malloc(sizeof(node));
+    strcpy(temp->value, inputNoKeyword);
+    temp->next = head;
+    head = temp;
+    return head;
 }
 
-// void removeAtBeginning(node *head) { // método POP
-//     if (head->value == "NULL") {
-//         head->value = inputNoKeyword;
-//     }
-//     else {
-
-//     }
-// }
+node* removeAtBeginning(node *head) { // método POP
+    if (!(strcmp(head->value, "NULL"))) {
+        return head;
+    }
+    else {
+        head = head->next;
+        return head;
+    }
+}
 
 int main() {
 
@@ -45,18 +43,17 @@ int main() {
 
     while (scanf(" %[^\n]", input) == 1) {
         if (strlen(input) == 8) {
-            printf("1");
-            // pop
-            
+            head = removeAtBeginning(head);
         }
         else {
             char inputNoKeyword[strlen(input)-8];
             for (unsigned int i = 8; i < strlen(input)+1; i++) { // +1 é por causa do '\0'
                 inputNoKeyword[i-8] = input[i];
             }
-            insertAtBeginning(head, inputNoKeyword);
+            head = insertAtBeginning(head, inputNoKeyword);
         }
         printf("%s\n", head->value);
+        
     }
 
 }
