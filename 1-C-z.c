@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// VERSÃO IMPLEMENTADA COM LISTAS ENCADEADAS
+
 typedef struct node {
     char value[100];
     struct node *next;
