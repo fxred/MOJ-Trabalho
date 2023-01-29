@@ -43,6 +43,7 @@ int main() {
 
     while (scanf(" %[^\n]", input) == 1) {
         if (strlen(input) == 8) {
+            printf("%s\n", head->value);
             head = removeAtBeginning(head);
         }
         else {
@@ -51,8 +52,9 @@ int main() {
                 inputNoKeyword[i-8] = input[i];
             }
             head = insertAtBeginning(head, inputNoKeyword);
+            //printf("%s\n", head->value);
         }
-        printf("%s\n", head->value);
+        
         
     }
 
