@@ -43,19 +43,20 @@ int main() {
 
     char input[100];
 
-    scanf("%[^\n]", input);
-
-    if (strlen(input) == 8) {
-        printf("1");
-        // TODO: implementar o método pop da pilha
-    }
-    else {
-        char inputNoKeyword[strlen(input)-8];
-        for (unsigned int i = 8; i < strlen(input)+1; i++) { // +1 é por causa do '\0'
-            inputNoKeyword[i-8] = input[i];
+    while (scanf(" %[^\n]", input) == 1) {
+        if (strlen(input) == 8) {
+            printf("1");
+            // pop
+            
         }
-        // TODO: implementar o método push da pilha
-        insertAtBeginning(head, inputNoKeyword);
+        else {
+            char inputNoKeyword[strlen(input)-8];
+            for (unsigned int i = 8; i < strlen(input)+1; i++) { // +1 é por causa do '\0'
+                inputNoKeyword[i-8] = input[i];
+            }
+            insertAtBeginning(head, inputNoKeyword);
+        }
+        printf("%s\n", head->value);
     }
-    printf("%s", head->value);
+
 }
