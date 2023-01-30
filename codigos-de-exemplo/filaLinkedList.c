@@ -46,13 +46,29 @@ int dequeue(node *n) {
     }
     else if (head == tail && head != NULL && tail != NULL) {
         node *temp = head;
+        int data = head->value;
         head = NULL;
         tail = NULL;
         free(temp);
+        return data;
     }
     else {
         printf("You cannot remove a node from an empty list.\n");
     }
+}
+
+int isEmpty(node *n) {
+    return head == NULL && tail == NULL;
+}
+
+void reversePrint(node *n) {
+    if (isEmpty(n)) {
+        return;
+    }
+    int data = dequeue(n);
+    printf("%d ", data);
+    reversePrint(n);
+    enqueue(n, data);
 }
 
 int main() {
@@ -69,8 +85,12 @@ int main() {
     dequeue(n);
     enqueue(n, 1);
     enqueue(n, 2);
-    while (1) {
-        enqueue(n, dequeue(n));
-        printf("%d\n", check(n));
-    }
+    dequeue(n);
+    dequeue(n);
+    dequeue(n);
+    enqueue(n, 1);
+    enqueue(n, 2);
+    enqueue(n, 3);
+    printf("%d %d %d\n", head->next->next->value, head->next->value, head->value);
+    reversePrint(n);
 }
