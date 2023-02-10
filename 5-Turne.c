@@ -72,7 +72,7 @@ int main(){
    }
 
    while (!isEmpty(n)) {
-    node *temp;
+    node *temp = malloc(sizeof(node));
     strcpy(temp->value, check(n));
     
     printf("%s\n", temp->value);
@@ -80,7 +80,7 @@ int main(){
     if (isEmpty(n)) {
         break;
     }
-    
+
     if (temp->value[strlen(temp->value) - 1] == check(n)[0]+32) {
         enqueue(n, check(n));
         dequeue(n);
