@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 typedef struct node {
@@ -73,14 +74,13 @@ int main(){
    while (!isEmpty(n)) {
     node *temp;
     strcpy(temp->value, check(n));
-    temp->next = NULL;
     
     printf("%s\n", temp->value);
     dequeue(n);
     if (isEmpty(n)) {
         break;
     }
-
+    
     if (temp->value[strlen(temp->value) - 1] == check(n)[0]+32) {
         enqueue(n, check(n));
         dequeue(n);
