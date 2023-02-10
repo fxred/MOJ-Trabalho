@@ -1,6 +1,60 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
+typedef char Item[27];
+
+typedef struct no_st{
+    Item cidade;
+    No *prox;
+}No;
+
+typedef struct header_St{
+    No *inicio;
+    int no_count;
+}Header;
+
+int inicializa_Fila(Header *H){
+    H -> inicio = NULL;
+    H -> no_count = 0;
+
+    return 1;
+}
+
+void enfila(Header *H, char *cidade){
+    No *new_No = malloc(sizeof(No));
+    strcpy(new_No -> cidade, cidade);
+    new_No -> prox = NULL;
+
+    if(H -> inicio == NULL){
+        H -> inicio = new_No;
+
+    } else{
+        No *temp = H;
+        while(temp -> prox != NULL){temp = temp -> prox;}
+
+        temp -> prox = new_No;
+        H -> no_count++;
+    }
+}
+
+void desenfila(Header *H){
+    No *temp = H -> inicio;
+    H -> inicio = temp -> prox;
+    temp -> prox == NULL;
+
+    free(temp);
+}
+
+No * espia(Header *H){
+    return H -> inicio;
+    H -> no_count--;
+}
+
+int esta_Vazia(Header *H){return H -> no_count == 0;}
+
+
+/*
 typedef struct node {
     char value[27];
     struct node *next;
@@ -59,10 +113,10 @@ void dequeue(node *n) {
 int isEmpty(node *n) {
     return head == NULL && tail == NULL;
 }
+*/
 
 int main(){
-   char leitura[27];
-
+/*
    node *n = malloc(sizeof(node));
    queueInitialize(n);
    
@@ -86,4 +140,23 @@ int main(){
         dequeue(n);
     }
    }
+
+   */
+    
+    char leitura[27];
+    Header H;
+    inicializa_Fila(&H);
+
+    while(scanf("%s", leitura) == 1 && leitura != EOF){enfila(&H, leitura);}
+
+    while(!esta_Vazia(&H)){
+        No *temp = espia(&H);
+        printf("%s\n", temp->cidade);
+        desenfila(&H);
+
+        if(temp -> cidade[strlen(temp -> cidade) - 1] == (espia(&H) -> cidade[0] + 32)){
+            enfila(&H, espia(&H));
+            desenfila(&H);
+        }
+    }
 }
