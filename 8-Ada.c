@@ -99,22 +99,20 @@ int main() {
     for (int i = 0; i < instrucoes; i++) {
         char instrucao[10];
         int queue;
-        scanf("%s %d", instrucao, &queue);
+        scanf("%s", instrucao);
 
         if (!strcmp(instrucao, "toFront")){
+            scanf("%d", &queue);
             toFront(&h, queue);
         }
+        if (!strcmp(instrucao, "front")){front(&h);}
+        
         if (!strcmp(instrucao, "push_back")){
+            scanf("%d", &queue);
             push_back(&h, queue);
         }
-        if (!strcmp(instrucao, "front")){
-            front(&h);
-        }
-        if (!strcmp(instrucao, "back")){
-            back(&h);
-        }
-        if (!strcmp(instrucao, "reverse")){
-            reverseQueue(&h);
-        }
+        if (!strcmp(instrucao, "back")){back(&h);}
+
+        if (!strcmp(instrucao, "reverse")){reverseQueue(&h);}
     }
 }
