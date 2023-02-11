@@ -12,9 +12,23 @@ int main(){
     char parque[linhas][colunas];
     char caractere;
 
+<<<<<<< HEAD
     char posicoes[linhas*colunas][2];
-
+=======
     for(int i = 0; i < linhas; i++){
+        for(int j = 0; j < colunas; j++){
+            scanf(" %c", &caractere);
+            parque[i][j] = caractere;
+            if(caractere == 't'){contador++;}
+        }
+    }
+>>>>>>> 9a2ec1f (Teste)
+
+    for(int i = 0; i < contador; i++){
+        
+    }
+
+    /*for(int i = 0; i < linhas; i++){
         for(int j = 0; j < colunas; j++){
             scanf(" %c", &caractere);
             parque[i][j] = caractere;
@@ -24,6 +38,7 @@ int main(){
                 contador++;
             }
         }
+<<<<<<< HEAD
     }
     
     torre t[contador-1];
@@ -96,4 +111,8 @@ int main(){
     // for (int i = 0; i < contador; i++) {
 
     // }
+=======
+        printf("\n");
+    }*/
+>>>>>>> 9a2ec1f (Teste)
 }
