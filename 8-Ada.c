@@ -7,6 +7,7 @@ typedef int Item;
 typedef struct no_st{
     Item item;
     struct no_st *prox;
+    struct no_st *ant;
 }No;
 
 typedef struct header_St{
@@ -44,8 +45,13 @@ void back(Header *H){
         H -> inicio = NULL;
         H -> final = NULL;
         H -> no_count--;
-    } else{
-        while(aux -> prox != H -> final){aux = aux -> prox;}
+    }
+
+    else{
+        aux = H->final->ant;
+        // while (aux -> prox != H -> final) {
+        //     aux = aux -> prox;
+        // }
         H -> final = aux;
         H -> no_count--;
     }
@@ -102,7 +108,7 @@ int main() {
             if (reverse == 0) {
                 reverse = 1;
             }
-            else {
+            else if (reverse == 1) {
                 reverse = 0;
             }
         }
@@ -126,13 +132,13 @@ int main() {
                 scanf("%d", &queue);
                 push_back(&h, queue);
             }
-            if (!strcmp(instrucao, "front")){front(&h);}
+            if (!strcmp(instrucao, "front")){back(&h);}
             
             if (!strcmp(instrucao, "push_back")){
                 scanf("%d", &queue);
                 toFront(&h, queue);
             }
-            if (!strcmp(instrucao, "back")){back(&h);}
+            if (!strcmp(instrucao, "back")){front(&h);}
 
         }
 
