@@ -71,6 +71,8 @@ int toFront(Header *H, Item insert){
     temp -> prox = H -> inicio;
     
     H -> inicio = temp;
+
+    if(H -> final == NULL){H -> final = H -> inicio;}
     H -> no_count++;
 
     return 1;
@@ -79,12 +81,17 @@ int toFront(Header *H, Item insert){
 int push_back(Header *H, Item insert){
     No *temp = malloc(sizeof(No));
     if(temp == NULL)return 0;
-    temp -> item = insert;
 
+    temp -> item = insert;
     temp -> prox = NULL;
     
-    H -> final -> prox = temp;
-    H -> final = temp;
+    if(H -> final == NULL){H -> final = temp;} 
+    else{
+        H -> final -> prox = temp;
+        H -> final = temp;
+    }
+
+    if(H -> inicio == NULL){H -> inicio = H -> final;}
     H -> no_count++;
 
     return 1;
