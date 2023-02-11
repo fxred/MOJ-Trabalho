@@ -14,6 +14,24 @@ typedef struct header_St{
     int no_count;
 }Header;
 
+void reverseQueue(No *n) {
+    No *prev = malloc(sizeof(No));
+    prev = NULL;
+    No *curr = head;
+    No *post = head->next;
+
+    while (curr->next != NULL) {
+        post = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = post;
+    }
+    curr->next = prev;
+    No *temp = head;
+    head = tail;
+    tail = temp;
+}
+
 int initialize_queue(Header *H){
     H -> inicio = NULL;
     H -> final = NULL;
