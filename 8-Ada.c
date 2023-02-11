@@ -16,6 +16,8 @@ typedef struct header_St{
 }Header;
 
 void reverseQueue(Header *H) {
+    if(is_empty(H))return;
+    
     No *prev = malloc(sizeof(No));
     prev = NULL;
     No *curr = H;
@@ -49,6 +51,7 @@ void front(Header *H){
 
     printf("%d\n", H -> inicio -> item);
     H -> inicio = H -> inicio -> prox;
+    if(H -> no_count == 1){H -> final = H -> inicio;}
     H -> no_count--;
 }
 
