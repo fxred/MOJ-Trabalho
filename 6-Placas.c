@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include <stdlib.h>
 
 typedef int Item;
@@ -37,25 +36,22 @@ int insere(Header *H, Item insert){
 
     else{
         No *aux = H -> inicio;
-        while((aux -> item <= temp -> item) || aux -> prox != NULL){aux = aux -> prox;}
+        while(((aux -> prox -> item) <= (temp -> item)) || aux -> prox != NULL){aux = aux -> prox;}
 
         if(aux -> prox != NULL){
             temp -> prox = aux -> prox;
             aux -> prox = temp;
 
             H -> no_count++;
+            return 1;
         } else{
             aux -> prox = temp;
             temp -> prox = NULL;
 
             H -> no_count++;
+            return 1;
         }
     }
-
-    H -> inicio = temp;
-    H -> no_count = H -> no_count++;
-    
-    return 1;
 }
 
 int main(){
@@ -64,15 +60,15 @@ int main(){
     Header H;
     inicializa_Lista(&H);
     
-    while(scanf("%d %d", &op, &placa) == 2 && (op != EOF || placa != EOF)){
-        if(op == 1){insere(&H, placa);} 
-        else if(op == 2){
+    while(scanf("%d %d", &op, &placa) == 2){
+        if(op == 1){insere(&H, placa);}
+        /*else if(op == 2){
             for(int i = 0; i < placa; i++){
                 No *aux = H.inicio;
 
                 if(i == (placa - 1)){printf("%d\n", aux -> item);}
                 else{printf("%d ", aux -> item);}
             }
-        }
+        }*/
     }
 }
