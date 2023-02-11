@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef int Item;
 
@@ -87,4 +88,33 @@ int push_back(Header *H, Item insert){
     H -> no_count++;
 
     return 1;
+}
+
+int main() {
+    int instrucoes;
+    scanf("%d", &instrucoes);
+    Header h;
+    initialize_queue(&h);
+
+    for (int i = 0; i < instrucoes; i++) {
+        char instrucao[10];
+        int queue;
+        scanf("%s %d", instrucao, &queue);
+
+        if (!strcmp(instrucao, "toFront")){
+            toFront(&h, queue);
+        }
+        if (!strcmp(instrucao, "push_back")){
+            push_back(&h, queue);
+        }
+        if (!strcmp(instrucao, "front")){
+            front(&h);
+        }
+        if (!strcmp(instrucao, "back")){
+            back(&h);
+        }
+        if (!strcmp(instrucao, "reverse")){
+            reverseQueue(&h);
+        }
+    }
 }
