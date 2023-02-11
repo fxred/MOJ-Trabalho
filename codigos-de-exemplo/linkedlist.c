@@ -10,7 +10,7 @@ int initializeLinkedList(node *n) {
     if (n == NULL) {
         return 0;
     }
-    n->value = 0;
+    n->value = NULL;
     n->next = NULL;
     return 1;
 }
@@ -42,29 +42,27 @@ void printLinkedList(node *n) {
 }
 
 node * insertAtGivenPosition(node *n, int position, int data) {
-    if (position == 0) {
-        insertAtBeginning(n, data);
+    // if (position == 0) {
+    //     insertAtBeginning(n, data);
+    // }
+    node *temp = malloc(sizeof(node));
+    temp->value = data;
+    node *ptrFirst = n;
+    node *ptrLast = n;
+    for (int i = 0; i < position; i++) {
+        ptrLast = ptrLast->next;
+        if (i > 0) {
+            ptrFirst = ptrFirst->next;
+        }
     }
-    else {
-        node *temp = malloc(sizeof(node));
-        temp->value = data;
-        node *ptrFirst = n;
-        node *ptrLast = n;
-        for (int i = 0; i < position; i++) {
-            ptrLast = ptrLast->next;
-            if (i > 0) {
-                ptrFirst = ptrFirst->next;
-            }
-        }
-        if (ptrLast->next != NULL) {
-            temp->next = ptrLast;
-            ptrFirst->next = temp;
-        }
-        else if (ptrLast->next == NULL) {
-            insertAtEnd(n, data);
-        }
+    if (ptrLast->next != NULL) {
+        temp->next = ptrLast;
+        ptrFirst->next = temp;
+    }
+    else if (ptrLast->next == NULL) {
+        insertAtEnd(n, data);
+    }
         
-    }
     
 
 }
@@ -72,12 +70,45 @@ node * insertAtGivenPosition(node *n, int position, int data) {
 int main() {
     node *n = malloc(sizeof(node));
     initializeLinkedList(n);
+    printf("%d\n", n->value);
 
-    insertAtEnd(n, 3);
-    n = insertAtBeginning(n, 5);
+    // insertAtEnd(n, 3);
+    // //n = insertAtBeginning(n, 5);
     
-    n = insertAtGivenPosition(n, 2, 6);
+    // n = insertAtGivenPosition(n, 2, 6);
 
-    printLinkedList(n);
+    // printLinkedList(n);
+    int opcao, placa, count = 0;
+
+    while (scanf("%d %d", &opcao, &placa) == 2) {
+        if (opcao == 1) {
+            if (count == 0) {
+                insertAtEnd(n, placa);
+                printf("%d\n", n->value);
+            }
+            else {
+                node *aux = n;
+                while (placa <= aux->value && aux->value == NULL) {
+                   aux = aux->next; 
+                   count++;
+                }
+                if (aux->value == NULL) {
+                    insertAtEnd(n, placa);
+                }
+                else if (placa <= aux->value) {
+                    insertAtGivenPosition(n, count, placa);
+                }
+            }
+        }
+        if (opcao == 2) {
+            int range = placa;
+            node *aux = n;
+            for (int i = 0; i < range; i++) {
+                printf("%d ", aux->value);
+                aux = aux->next;
+            }
+        }
+    }
+    printf("%d %d %d\n", n->value, n->next->value, n->next->next->value);
 
 }
