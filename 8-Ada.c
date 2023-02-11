@@ -15,27 +15,6 @@ typedef struct header_St{
     int no_count;
 }Header;
 
-void reverseQueue(Header *H) {
-    if(is_empty(H))return;
-    
-    No *prev = malloc(sizeof(No));
-    prev = NULL;
-    No *curr = H -> inicio;
-    No *post = H -> inicio -> prox;
-
-    while (curr -> prox != NULL) {
-        post = curr -> prox;
-        curr -> prox = prev;
-        prev = curr;
-        curr = post;
-    }
-
-    curr -> prox = prev;
-    No *temp = H -> inicio;
-    H -> inicio = H -> final;
-    H -> final = temp;
-}
-
 int initialize_queue(Header *H){
     H -> inicio = NULL;
     H -> final = NULL;
@@ -111,26 +90,51 @@ int main() {
     scanf("%d", &instrucoes);
     Header h;
     initialize_queue(&h);
-    
+
     int reverse = 0;
     for (int i = 0; i < instrucoes; i++) {
-        char instrucao[10];
+        char instrucao[9]; // trocar pra 10 se der erro
         int queue;
         
         scanf("%s", instrucao);
 
-        if (!strcmp(instrucao, "toFront")){
-            scanf("%d", &queue);
-            toFront(&h, queue);
+        if (!strcmp(instrucao, "reverse")) {
+            if (reverse == 0) {
+                reverse = 1;
+            }
+            else {
+                reverse = 0;
+            }
         }
-        if (!strcmp(instrucao, "front")){front(&h);}
-        
-        if (!strcmp(instrucao, "push_back")){
-            scanf("%d", &queue);
-            push_back(&h, queue);
-        }
-        if (!strcmp(instrucao, "back")){back(&h);}
 
-        if (!strcmp(instrucao, "reverse")){reverseQueue(&h);}
+        if (reverse == 0) {
+            if (!strcmp(instrucao, "toFront")){
+                scanf("%d", &queue);
+                toFront(&h, queue);
+            }
+            if (!strcmp(instrucao, "front")){front(&h);}
+            
+            if (!strcmp(instrucao, "push_back")){
+                scanf("%d", &queue);
+                push_back(&h, queue);
+            }
+            if (!strcmp(instrucao, "back")){back(&h);}
+
+        }
+        if (reverse == 1) {
+            if (!strcmp(instrucao, "toFront")){
+                scanf("%d", &queue);
+                push_back(&h, queue);
+            }
+            if (!strcmp(instrucao, "front")){front(&h);}
+            
+            if (!strcmp(instrucao, "push_back")){
+                scanf("%d", &queue);
+                toFront(&h, queue);
+            }
+            if (!strcmp(instrucao, "back")){back(&h);}
+
+        }
+
     }
 }
