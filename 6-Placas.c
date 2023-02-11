@@ -23,25 +23,41 @@ int insere(Header *H, Item insert){
 
     temp -> item = insert;
 
-    if(H -> inicio == NULL){
+    if(H -> inicio == NULL){ // inserir no início
         H -> inicio = temp;
 
         temp -> prox = NULL;
         return 1;
     }
 
-    else{
+    else{ 
         No *aux = H -> inicio;
         while(aux -> prox != NULL && (aux -> prox -> item <= temp -> item)){
             aux = aux -> prox;
         }
 
-        if(aux -> prox == NULL){
-            aux -> prox = temp;
-            temp -> prox = NULL;
-        } else{
+        if(aux -> prox == NULL){ // inserir no final
+            if (H->inicio == aux) {
+                if (aux->item <= temp->item) {
+                    aux -> prox = temp;
+                    temp -> prox = NULL;
+                }
+            }
+            else {
+                temp->prox = aux;
+                H->inicio = temp;
+            }
+            return 1;
+        
+        }
+        // else if () {
+
+        // }
+        else{ // inserir antes do elemento >=
             temp -> prox = aux -> prox;
             aux -> prox = temp;
+            
+            return 1;
         }
     }
 }
@@ -54,13 +70,17 @@ int main(){
     
     while(scanf("%d %d", &op, &placa) == 2){
         if(op == 1){insere(&H, placa);}
-        /*else if(op == 2){
+        else if(op == 2){
+            No *aux = H.inicio;
             for(int i = 0; i < placa; i++){
-                No *aux = H.inicio;
-
                 if(i == (placa - 1)){printf("%d\n", aux -> item);}
-                else{printf("%d ", aux -> item);}
+                else {
+                    printf("%d ", aux -> item);
+                    aux = aux->prox;
+                }
             }
-        }*/
+        }
     }
+
+    //printf("%d %d\n", H.inicio->item, H.inicio->prox->item);
 }
