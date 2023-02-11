@@ -7,7 +7,6 @@ typedef int Item;
 typedef struct no_st{
     Item item;
     struct no_st *prox;
-    struct no_st *ant;
 }No;
 
 typedef struct header_St{
@@ -45,13 +44,8 @@ void back(Header *H){
         H -> inicio = NULL;
         H -> final = NULL;
         H -> no_count--;
-    }
-
-    else{
-        aux = H->final->ant;
-        // while (aux -> prox != H -> final) {
-        //     aux = aux -> prox;
-        // }
+    } else{
+        while(aux -> prox != H -> final){aux = aux -> prox;}
         H -> final = aux;
         H -> no_count--;
     }
