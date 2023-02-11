@@ -20,8 +20,8 @@ void reverseQueue(Header *H) {
     
     No *prev = malloc(sizeof(No));
     prev = NULL;
-    No *curr = H;
-    No *post = H -> inicio;
+    No *curr = H -> inicio;
+    No *post = H -> inicio -> prox;
 
     while (curr -> prox != NULL) {
         post = curr -> prox;
@@ -111,10 +111,12 @@ int main() {
     scanf("%d", &instrucoes);
     Header h;
     initialize_queue(&h);
-
+    
+    int reverse = 0;
     for (int i = 0; i < instrucoes; i++) {
         char instrucao[10];
         int queue;
+        
         scanf("%s", instrucao);
 
         if (!strcmp(instrucao, "toFront")){
