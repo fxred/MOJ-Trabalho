@@ -58,9 +58,15 @@ void back(Header *H){
     printf("%d\n", H -> final -> item);
 
     No *aux = H -> inicio;
-    while(aux -> prox != H -> final){aux = aux -> prox;}
-    H -> final = aux;
-    H -> no_count--;
+    if(aux == H -> final){
+        H -> inicio = NULL;
+        H -> final = NULL;
+        H -> no_count--;
+    } else{
+        while(aux -> prox != H -> final){aux = aux -> prox;}
+        H -> final = aux;
+        H -> no_count--;
+    }
 }
 
 int toFront(Header *H, Item insert){
