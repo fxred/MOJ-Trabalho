@@ -61,14 +61,22 @@ int isEmpty(node *n) {
     return head == NULL && tail == NULL;
 }
 
-void reversePrint(node *n) {
-    if (isEmpty(n)) {
-        return;
+void reverseQueue(node *n) {
+    node *prev = malloc(sizeof(node));
+    prev = NULL;
+    node *curr = head;
+    node *post = head->next;
+
+    while (curr->next != NULL) {
+        post = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = post;
     }
-    int data = dequeue(n);
-    printf("%d ", data);
-    reversePrint(n);
-    enqueue(n, data);
+    curr->next = prev;
+    node *temp = head;
+    head = tail;
+    tail = temp;
 }
 
 int main() {
@@ -76,21 +84,9 @@ int main() {
     queueInitialize(n);
     enqueue(n, 1);
     enqueue(n, 2);
-    printf("%d\n", head->value);
-    printf("%d\n", tail->value);
-    enqueue(n, dequeue(n));
-    printf("%d\n", head->value);
-    printf("%d\n", tail->value);
-    dequeue(n);
-    dequeue(n);
-    enqueue(n, 1);
-    enqueue(n, 2);
-    dequeue(n);
-    dequeue(n);
-    dequeue(n);
-    enqueue(n, 1);
-    enqueue(n, 2);
     enqueue(n, 3);
-    printf("%d %d %d\n", head->next->next->value, head->next->value, head->value);
-    reversePrint(n);
+    enqueue(n, 4);
+    printf("%d %d %d %d\n", head->value, head->next->value, head->next->next->value, head->next->next->next->value);
+    reverseQueue(n);
+    printf("%d %d %d %d\n", head->value, head->next->value, head->next->next->value, head->next->next->next->value);
 }
