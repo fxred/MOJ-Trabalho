@@ -32,32 +32,30 @@ int insere(Header *H, Item insert){
 
     else{ 
         No *aux = H -> inicio;
-        while(aux -> prox != NULL && (aux -> prox -> item <= temp -> item)){
-            aux = aux -> prox;
-        }
 
-        if(aux -> prox == NULL){ // inserir no final
-            if (H->inicio == aux) {
-                if (aux->item <= temp->item) {
-                    aux -> prox = temp;
-                    temp -> prox = NULL;
-                }
-            }
-            else {
-                temp->prox = aux;
-                H->inicio = temp;
-            }
-            return 1;
-        
-        }
-        // else if () {
+        if(aux -> item >= temp -> item){
+                temp -> prox = aux;
+                H -> inicio = temp;
 
-        // }
-        else{ // inserir antes do elemento >=
-            temp -> prox = aux -> prox;
-            aux -> prox = temp;
-            
-            return 1;
+                return 1;
+        } else{
+
+            while(aux -> prox != NULL && (aux -> prox -> item <= temp -> item)){
+                aux = aux -> prox;
+            }
+
+            if(aux -> prox == NULL){
+                aux -> prox = temp;
+                temp -> prox = NULL;
+
+                return 1;
+            } else {
+                temp -> prox = aux -> prox;
+                aux -> prox = temp;
+
+                return 1;
+            }
+
         }
     }
 }
@@ -81,6 +79,4 @@ int main(){
             }
         }
     }
-
-    //printf("%d %d\n", H.inicio->item, H.inicio->prox->item);
 }
