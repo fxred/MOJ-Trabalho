@@ -10,10 +10,12 @@ typedef struct no_st{
 
 typedef struct header_St{
     No *inicio;
+    No *final;
 }Header;
 
 int inicializa_Lista(Header *H){
     H -> inicio = NULL;
+    H -> final = NULL;
     return 1;
 }
 
@@ -25,6 +27,7 @@ int insere(Header *H, Item insert){
 
     if(H -> inicio == NULL){ // inserir no início
         H -> inicio = temp;
+        H -> final = temp;
 
         temp -> prox = NULL;
         return 1;
@@ -35,27 +38,27 @@ int insere(Header *H, Item insert){
 
         if(aux -> item >= temp -> item){
                 temp -> prox = aux;
+                H -> final = aux;
                 H -> inicio = temp;
 
                 return 1;
         } else{
 
-            while(aux -> prox != NULL && (aux -> prox -> item <= temp -> item)){
-                aux = aux -> prox;
-            }
-
-            if(aux -> prox == NULL){
-                aux -> prox = temp;
-                temp -> prox = NULL;
+            if(H -> final -> item <= temp -> item){
+                H -> final -> prox = temp;
+                H -> final = temp;
 
                 return 1;
-            } else {
+            } else{
+                 while(aux -> prox -> item <= temp -> item){
+                    aux = aux -> prox;
+                }
+
                 temp -> prox = aux -> prox;
                 aux -> prox = temp;
 
                 return 1;
             }
-
         }
     }
 }
