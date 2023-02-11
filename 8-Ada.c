@@ -10,58 +10,62 @@ typedef struct no_st{
 
 typedef struct header_St{
     No *inicio;
+    No *final;
     int no_count;
 }Header;
 
-int inicializa_Lista(Header *H){
+int initialize_queue(Header *H){
     H -> inicio = NULL;
+    H -> final = NULL;
     H -> no_count = 0;
 
     return 1;
 }
 
-int insere_Inicio(Header *H, Item insert){
+int is_empty(Header *H){return H -> no_count == 0;}
+
+void front(Header *H){
+    if(is_empty(H))return printf("No job for Ada?\n");
+
+    printf("%d\n", H -> inicio -> item);
+    H -> inicio = H -> inicio -> prox;
+    H -> no_count--;
+}
+
+void back(Header *H){
+    if(is_empty(H))return printf("No job for Ada?\n");
+
+    printf("%d\n", H -> final -> item);
+
+    No *aux = H -> inicio;
+    while(aux -> prox != H -> final){aux = aux -> prox;}
+    H -> final = aux;
+    H -> no_count--;
+}
+
+int toFront(Header *H, Item insert){
     No *temp = malloc(sizeof(No));
     if(temp == NULL)return 0;
-
     temp -> item = insert;
+
     temp -> prox = H -> inicio;
-
-    H -> inicio = temp;
-    H -> no_count = H -> no_count++;
     
+    H -> inicio = temp;
+    H -> no_count++;
+
     return 1;
 }
 
-Item remove_Inicio(Header *H){
-    No *remove = H -> inicio;
-    Item devolve = remove -> item;
-    free(remove);
+int push_back(Header *H, Item insert){
+    No *temp = malloc(sizeof(No));
+    if(temp == NULL)return 0;
+    temp -> item = insert;
 
-    H -> inicio = H -> inicio -> prox;
-    H -> no_count = H -> no_count--;
+    temp -> prox = NULL;
+    
+    H -> final -> prox = temp;
+    H -> final = temp;
+    H -> no_count++;
 
-    return devolve;
-}
-
-int insere_Depois(No *no, Item insert){
-    No *new = malloc(sizeof(Item));
-    if(new == NULL)return 0;
-
-    new -> item = insert;
-    new -> prox = no -> prox;
-
-    no -> prox = new;
     return 1;
-}
-
-void insertAtEnd(No *n, Item data) {
-    No *temp = malloc(sizeof(node));
-    temp->value = data;
-    temp->next = NULL;
-    node *ptr = n;
-    while (ptr->next != NULL) {
-        ptr = ptr->next;
-    }
-    ptr->next = temp;
 }
