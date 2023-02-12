@@ -74,7 +74,7 @@ int main() {
 
     verifySanity(firstNode, lastNode, h);
 
-    printf("%x %x %x %x\n", h->inicio->item->curr, h->inicio->prox->item->curr, h->inicio->prox->prox->item->curr, h->inicio->prox->prox->prox->item->curr);
+    //printf("%x %x %x %x\n", h->inicio->item->curr, h->inicio->prox->item->curr, h->inicio->prox->prox->item->curr, h->inicio->prox->prox->prox->item->curr);
 
 }
 
@@ -91,7 +91,7 @@ void verifySanity(long unsigned int firstNode[], long unsigned int lastNode[], H
     }
     Header *temp = h;
 
-    while (firstNode[2] != temp->inicio->item->curr) {
+    while (firstNode[2] != temp->inicio->item->curr && temp->inicio == NULL) {
         temp->inicio = temp->inicio->prox;  
     }
     if (firstNode[2] == temp->inicio->item->curr) {
