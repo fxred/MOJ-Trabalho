@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct node {
     long unsigned int curr;
@@ -6,7 +7,7 @@ typedef struct node {
     long unsigned int post;
 } node;
 
-typedef node Item;
+typedef node* Item;
 
 typedef struct no_st{
     Item item;
@@ -51,5 +52,52 @@ int push_back(Header *H, Item insert){
 
 
 int main() {
+    Header *h = malloc(sizeof(Header));
+    list_initialize(h);
+    long unsigned int curr, prev, post;
 
+    long unsigned int firstNode[3];
+    long unsigned int lastNode[3];
+
+    scanf("%x %x %x", &firstNode[0], &firstNode[1], &firstNode[2]);
+    scanf("%x %x %x", &lastNode[0], &lastNode[1], &lastNode[2]);
+
+    while (scanf("%x %x %x", &curr, &prev, &post) == 3) {
+        node *n = malloc(sizeof(node));
+        n->curr = curr;
+        n->prev = prev;
+        n->post = post;
+        push_back(h, n);
+    }
+
+    verifySanity(firstNode, lastNode, h);
+
+}
+
+void verifySanity(long unsigned int firstNode[], long unsigned int lastNode[], Header *h) {
+    if (firstNode[2] == lastNode[0]) {
+        if (firstNode[0] == lastNode[1]) {
+            printf("sana\n");
+            return;
+        }
+        else {
+            printf("insana\n");
+            return;
+        }
+    }
+    Header *temp = malloc(sizeof(Header));
+    temp = h;
+    
+    while (firstNode[2] != temp->inicio->item->curr) {
+        temp->inicio = temp->inicio->prox;
+    }
+    if (firstNode[2] == temp->inicio->item->curr) {
+        firstNode[0] = temp->inicio->item->curr;
+        firstNode[1] = temp->inicio->item->prev;
+        firstNode[2] = temp->inicio->item->post;
+        verifySanity(firstNode, lastNode, h);
+    }
+    else {
+        printf("insana\n");
+    }
 }
