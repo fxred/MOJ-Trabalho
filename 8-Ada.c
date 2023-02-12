@@ -30,7 +30,7 @@ void front(Header *H){
 
     printf("%d\n", H -> inicio -> item);
     H -> inicio = H -> inicio -> prox;
-    if(H -> no_count == 1){H -> final = H -> inicio;}
+    if(H -> no_count == 1){H -> final = NULL;}
     H -> no_count--;
 }
 

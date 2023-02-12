@@ -30,35 +30,32 @@ int insere(Header *H, Item insert){
         H -> final = temp;
 
         temp -> prox = NULL;
+        
+        return 1;
+
+    } else if(H -> inicio -> item > temp -> item){
+        temp -> prox = H -> inicio;
+        H -> inicio = temp;
+
+        return 1;
+
+    } else if(H -> final -> item < temp -> item){
+        H -> final -> prox = temp;
+        H -> final = temp;
+
         return 1;
     }
 
     else{ 
         No *aux = H -> inicio;
-
-        if(aux -> item > temp -> item){
-                temp -> prox = aux;
-                H -> inicio = temp;
-
-                return 1;
-        } else{
-
-            if(H -> final -> item < temp -> item){
-                H -> final -> prox = temp;
-                H -> final = temp;
-
-                return 1;
-            } else{
-                 while(aux -> prox -> item < temp -> item){
-                    aux = aux -> prox;
-                }
-
-                temp -> prox = aux -> prox;
-                aux -> prox = temp;
-
-                return 1;
-            }
+        while(aux -> prox -> item < temp -> item){
+            aux = aux -> prox;
         }
+
+        temp -> prox = aux -> prox;
+        aux -> prox = temp;
+
+        return 1;
     }
 }
 
