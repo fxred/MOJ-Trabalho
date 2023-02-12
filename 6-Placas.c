@@ -68,7 +68,7 @@ int main(){
     Header H;
     inicializa_Lista(&H);
     
-    while(scanf("%d %d", &op, &placa) == 2 && ((op || placa) != EOF)){
+    while(scanf("%d %d", &op, &placa) == 2){
         if(op == 1){insere(&H, placa);}
         else if(op == 2){
             No *aux = H.inicio;
