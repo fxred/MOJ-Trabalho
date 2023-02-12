@@ -70,7 +70,11 @@ int main() {
         push_back(h, n);
     }
 
+    //printf("%d %d %d", h->inicio->item->curr, h->inicio->prox->item->curr, h->inicio->prox->prox->item->curr);
+
     verifySanity(firstNode, lastNode, h);
+
+    printf("%x %x %x %x\n", h->inicio->item->curr, h->inicio->prox->item->curr, h->inicio->prox->prox->item->curr, h->inicio->prox->prox->prox->item->curr);
 
 }
 
@@ -85,16 +89,18 @@ void verifySanity(long unsigned int firstNode[], long unsigned int lastNode[], H
             return;
         }
     }
-    Header *temp = malloc(sizeof(Header));
-    temp = h;
-    
+    Header *temp = h;
+
     while (firstNode[2] != temp->inicio->item->curr) {
-        temp->inicio = temp->inicio->prox;
+        temp->inicio = temp->inicio->prox;  
     }
     if (firstNode[2] == temp->inicio->item->curr) {
+        printf("achei\n");
         firstNode[0] = temp->inicio->item->curr;
         firstNode[1] = temp->inicio->item->prev;
         firstNode[2] = temp->inicio->item->post;
+        //printf("%x\n", temp->inicio->item->curr);
+        //printf("%x %x %x\n", firstNode[0], firstNode[1], firstNode[2]);
         verifySanity(firstNode, lastNode, h);
     }
     else {
