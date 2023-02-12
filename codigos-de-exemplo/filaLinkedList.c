@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 typedef struct node {
     int value;
@@ -80,7 +81,19 @@ void reverseQueue(node *n) {
 }
 
 int main() {
-    node *n = malloc(sizeof(node));
+    int repeats;
+    scanf("%d", &repeats);
+
+    for (int i = 0; i < repeats; i++) {
+        node *n = malloc(sizeof(node));
+        queueInitialize(n);
+        char input[100000];
+        scanf("%s", input);
+        for (int i = 0; i < strlen(input); i++) {
+            
+        }
+    }
+
     queueInitialize(n);
     enqueue(n, 1);
     enqueue(n, 2);

@@ -55,7 +55,6 @@ int main() {
             //printf("%s\n", head->value);
         }
         
-        
     }
 
 }
