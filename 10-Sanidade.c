@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct node {
     long unsigned int curr;
@@ -59,8 +60,8 @@ int main() {
     long unsigned int firstNode[3];
     long unsigned int lastNode[3];
 
-    scanf("%x %x %x", &firstNode[0], &firstNode[1], &firstNode[2]);
-    scanf("%x %x %x", &lastNode[0], &lastNode[1], &lastNode[2]);
+    scanf("%lx %lx %lx", &firstNode[0], &firstNode[1], &firstNode[2]);
+    scanf("%lx %lx %lx", &lastNode[0], &lastNode[1], &lastNode[2]);
 
     while (scanf("%x %x %x", &curr, &prev, &post) == 3) {
         node *n = malloc(sizeof(node));
@@ -73,6 +74,8 @@ int main() {
     //printf("%d %d %d", h->inicio->item->curr, h->inicio->prox->item->curr, h->inicio->prox->prox->item->curr);
 
     verifySanity(firstNode, lastNode, h);
+
+    //printf("%x %x %x\n", );
 
     //printf("%x %x %x %x\n", h->inicio->item->curr, h->inicio->prox->item->curr, h->inicio->prox->prox->item->curr, h->inicio->prox->prox->prox->item->curr);
 
@@ -89,21 +92,24 @@ void verifySanity(long unsigned int firstNode[], long unsigned int lastNode[], H
             return;
         }
     }
-    Header *temp = h;
+    No *temp = h->inicio;
 
-    while (firstNode[2] != temp->inicio->item->curr && temp->inicio == NULL) {
-        temp->inicio = temp->inicio->prox;  
+    while (firstNode[2] != temp->item->curr && temp->prox != NULL) {
+        temp = temp->prox;
     }
-    if (firstNode[2] == temp->inicio->item->curr) {
-        printf("achei\n");
-        firstNode[0] = temp->inicio->item->curr;
-        firstNode[1] = temp->inicio->item->prev;
-        firstNode[2] = temp->inicio->item->post;
+    if (firstNode[2] == temp->item->curr) {
+        printf("achei ");
+        printf("%x\n", temp->item->curr);
+        firstNode[0] = temp->item->curr;
+        firstNode[1] = temp->item->prev;
+        firstNode[2] = temp->item->post;
         //printf("%x\n", temp->inicio->item->curr);
-        //printf("%x %x %x\n", firstNode[0], firstNode[1], firstNode[2]);
+        printf("%x %x %x\n", firstNode[0], firstNode[1], firstNode[2]);
         verifySanity(firstNode, lastNode, h);
     }
-    else {
-        printf("insana\n");
+    else if (temp->prox == NULL) {
+        printf("insana de baixo\n");
+        //printf("insana\n");
+        return;
     }
 }
