@@ -1,3 +1,7 @@
+/*
+    No código final enviado existia um merge sort, mas como nao foi usado, foi retirado
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
