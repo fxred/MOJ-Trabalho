@@ -29,7 +29,7 @@ int enfila(Header *H, Item *insert){
     No *temp = malloc(sizeof(No));
     if(temp == NULL) return 0;
 
-    temp -> palavra = malloc(strlen(insert));
+    temp -> palavra = malloc(strlen(insert) + 1);
 
     strcpy(temp -> palavra, insert);
     temp -> prox = NULL;
@@ -61,25 +61,23 @@ void desenfila(Header *H){
 
     H -> inicio = temp -> prox;
     H -> no_count--;
-
-    free(temp);
 }
 
 int main(){
     Item palavra[4194304];
 
-    Header H;
-    inicializa_Fila(&H);
+    Header *H = malloc(sizeof(Header));
+    inicializa_Fila(H);
     
-    while(scanf("%s", palavra) == 1 && palavra != EOF){enfila(&H, palavra);}
+    while(scanf("%s", palavra) == 1){enfila(H, palavra);}
 
-    Item *string = procura(&H);
+    Item *string = procura(H);
     int contador;
     char *endereco;
 
-   while(!esta_Vazia(&H)){
-        Item *temp = espia(&H);
-        desenfila(&H);
+    while(!esta_Vazia(H)){
+        Item *temp = espia(H);
+        desenfila(H);
 
         contador = 0;
 
@@ -90,8 +88,7 @@ int main(){
                 char *new_endereco = (endereco + strlen(string));
                 endereco = strstr(new_endereco, string);
             }
-
-            printf("%d\n", contador);
-        } else{printf("%d\n", contador);}
+        }
+        printf("%d\n", contador);
     }
 }
