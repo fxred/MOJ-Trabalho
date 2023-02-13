@@ -2,10 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-typedef char Item[4194305];
+typedef char Item;
 
 typedef struct no_st{
-    Item palavra;
+    Item *palavra;
     struct no_st *prox;
 }No;
 
@@ -25,9 +25,11 @@ int inicializa_Fila(Header *H){
 
 int esta_Vazia(Header *H){return H -> no_count == 0;}
 
-int enfila(Header *H, Item insert){
+int enfila(Header *H, Item *insert){
     No *temp = malloc(sizeof(No));
     if(temp == NULL) return 0;
+
+    temp -> palavra = malloc(strlen(insert));
 
     strcpy(temp -> palavra, insert);
     temp -> prox = NULL;
@@ -63,23 +65,33 @@ void desenfila(Header *H){
     free(temp);
 }
 
-void finaliza_Fila(Header *H){
-    H -> no_count = 0;
-    free(H);
-}
-
 int main(){
-    Item palavra;
+    Item palavra[4194304];
 
     Header H;
     inicializa_Fila(&H);
     
-    while(scanf(" %s", palavra) == 1 && palavra != EOF){enfila(&H, palavra);}
+    while(scanf("%s", palavra) == 1 && palavra != EOF){enfila(&H, palavra);}
 
     Item *string = procura(&H);
     int contador;
-    while(!esta_Vazia(&H)){
-        contador = 0;
+    char *endereco;
+
+   while(!esta_Vazia(&H)){
         Item *temp = espia(&H);
+        desenfila(&H);
+
+        contador = 0;
+
+        endereco = strstr(temp, string);
+        if(endereco){
+            while(endereco){
+                contador++;
+                char *new_endereco = (endereco + strlen(string));
+                endereco = strstr(new_endereco, string);
+            }
+
+            printf("%d\n", contador);
+        } else{printf("%d\n", contador);}
     }
 }
