@@ -65,11 +65,6 @@ void desenfila(Header *H){
     free(temp);
 }
 
-void finaliza_Fila(Header *H){
-    H -> no_count = 0;
-    free(H);
-}
-
 int main(){
     Item palavra[4194304];
 
@@ -79,7 +74,7 @@ int main(){
     while(scanf("%s", palavra) == 1 && palavra != EOF){enfila(&H, palavra);}
 
     Item *string = procura(&H);
-    int contador, tamanho;
+    int contador;
     char *endereco;
 
    while(!esta_Vazia(&H)){
