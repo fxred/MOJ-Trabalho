@@ -6,7 +6,7 @@ typedef struct node {
     long unsigned int post;
 } node;
 
-node n[700000];
+
 
 typedef node Item;
 
@@ -102,20 +102,19 @@ void quicksortM3insertion(Item *V,int l,int r)
 
 
 int binarySearch(node *n, int l, int r, long unsigned int find) {
-    if (r >= l) {
-        int m = (r+l)/2;
-        if (n[m].curr == find) {
-            return m;
-        }
-        else if (n[m].curr > find) {
-            binarySearch(n, l, m-1, find);
-        }
-        else if (n[m].curr < find) {
-            binarySearch(n, m+1, r, find);
-        }
+    if (r < l) {
+      return -1;
     }
-    else {
-        return -1;
+
+    int m = (r+l)/2;
+    if (n[m].curr == find) {
+        return m;
+    }
+    else if (n[m].curr > find) {
+        binarySearch(n, l, m-1, find);
+    }
+    else if (n[m].curr < find) {
+        binarySearch(n, m+1, r, find);
     }
 }
 
@@ -152,6 +151,8 @@ void checkSanity(long unsigned int * firstNode, long unsigned int * lastNode, no
 
 
 int main() {
+
+    node n[100000];
 
     long unsigned int curr, prev, post;
     long unsigned int firstNode[3];

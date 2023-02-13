@@ -41,6 +41,7 @@ void push_back(Header *H, Item insert){
         temp->ant = H->final;
         H->final = temp;
     }
+    //free(temp);
 }
 
 void checkSanity(long unsigned int * firstNode, long unsigned int * lastNode, Header *h) {
@@ -71,8 +72,13 @@ void checkSanity(long unsigned int * firstNode, long unsigned int * lastNode, He
                 temp->ant->prox->ant = temp->ant;
                 temp->ant = NULL;
             }
-            
         }
+        // while (temp != NULL) {
+        //     No *prox = temp->prox;
+        //     free(temp->item);
+        //     free(temp);
+        //     temp->prox;
+        // }
 
         checkSanity(firstNode, lastNode, h);
     }
