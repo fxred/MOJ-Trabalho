@@ -6,7 +6,7 @@ typedef struct node {
     long unsigned int post;
 } node;
 
-node n[100000];
+node n[700000];
 
 void merge(node *n, int l, int m, int r) {
     //int subVet1[m-l+1], subVet2[r-m];
@@ -78,7 +78,6 @@ void checkSanity(long unsigned int * firstNode, long unsigned int * lastNode, no
             return;
         }
     }
-    //No *temp = h->inicio;
 
     int index;
 
@@ -122,9 +121,9 @@ int main() {
 
     mergeSort(n, 0, i-1);
 
-    for (int j = 0; j < i; j++) {
-        printf("%lx %lx %lx\n", n[j].curr, n[j].prev, n[j].post);
-    }
+    // for (int j = 0; j < i; j++) {
+    //     printf("%lx %lx %lx\n", n[j].curr, n[j].prev, n[j].post);
+    // }
     checkSanity(firstNode, lastNode, n, i);
 }
 

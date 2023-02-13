@@ -44,7 +44,33 @@ int push_back(Header *H, Item insert){
     return 1;
 }
 
+void checkSanity(long unsigned int * firstNode, long unsigned int * lastNode, Header *h) {
+    if (firstNode[2] == lastNode[0]) {
+        if (firstNode[0] == lastNode[1]) {
+            printf("sana\n");
+            return;
+        }
+        else {
+            printf("insana\n");
+            return;
+        }
+    }
+    No *temp = h->inicio;
 
+    while (firstNode[2] != temp->item->curr && temp->prox != NULL) {
+        temp = temp->prox;
+    }
+    if (firstNode[2] == temp->item->curr) {
+        firstNode[0] = temp->item->curr;
+        firstNode[1] = temp->item->prev;
+        firstNode[2] = temp->item->post;
+        checkSanity(firstNode, lastNode, h);
+    }
+    else if (temp->prox == NULL) {
+        printf("insana\n");
+        return;
+    }
+}
 
 int main() {
     Header *h = malloc(sizeof(Header));
@@ -65,34 +91,6 @@ int main() {
         push_back(h, n);
     }
 
-    verifySanity(firstNode, lastNode, h);
+    checkSanity(firstNode, lastNode, h);
 
-}
-
-void verifySanity(long unsigned int * firstNode, long unsigned int * lastNode, Header *h) {
-    if (firstNode[2] == lastNode[0]) {
-        if (firstNode[0] == lastNode[1]) {
-            printf("sana\n");
-            return;
-        }
-        else {
-            printf("insana\n");
-            return;
-        }
-    }
-    No *temp = h->inicio;
-
-    while (firstNode[2] != temp->item->curr && temp->prox != NULL) {
-        temp = temp->prox;
-    }
-    if (firstNode[2] == temp->item->curr) {
-        firstNode[0] = temp->item->curr;
-        firstNode[1] = temp->item->prev;
-        firstNode[2] = temp->item->post;
-        verifySanity(firstNode, lastNode, h);
-    }
-    else if (temp->prox == NULL) {
-        printf("insana\n");
-        return;
-    }
 }

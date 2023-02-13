@@ -6,7 +6,7 @@ typedef struct node {
     long unsigned int post;
 } node;
 
-node n[10000000];
+node n[700000];
 
 typedef node Item;
 
@@ -35,7 +35,7 @@ int Separa(Item *n, int l, int r){
 }
 
 
-//Quik otimizado, resolve alguns casos - Mediana de 3
+
 void quicksort(node *n, int l, int r){
     if(r <= l){return;}
 
@@ -78,7 +78,6 @@ void checkSanity(long unsigned int * firstNode, long unsigned int * lastNode, no
             return;
         }
     }
-    //No *temp = h->inicio;
 
     int index;
 
@@ -115,8 +114,6 @@ int main() {
         n[i].prev = prev;
         n[i++].post = post;
     }
-
-    //size_t n = sizeof(n)/sizeof(n[0]);
 
     quicksort(n, 0, i-1);
 
